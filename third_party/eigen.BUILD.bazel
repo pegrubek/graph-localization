@@ -1,0 +1,13 @@
+# The files in this repository come from the Eigen installation
+# in the Docker image, not from Bazel source builds.
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "eigen",
+    hdrs = glob([
+        "Eigen/**",
+        "unsupported/Eigen/**",
+    ]),
+    includes = ["."],
+)

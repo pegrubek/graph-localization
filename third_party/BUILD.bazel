@@ -1,0 +1,4 @@
+exports_files([
+    "eigen.BUILD.bazel", 
+    "gtsam.BUILD.bazel",
+])

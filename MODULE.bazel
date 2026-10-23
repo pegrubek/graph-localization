@@ -1,0 +1,30 @@
+module(
+    name = "graph_localization",
+    version = "0.1.0",
+)
+
+new_local_repository = use_repo_rule(
+    "@bazel_tools//tools/build_defs/repo:local.bzl",
+    "new_local_repository",
+)
+
+new_local_repository(
+    name = "system_eigen",
+    path = "/usr/local/include/gtsam/3rdparty/Eigen",
+    build_file = "//third_party:eigen.BUILD.bazel",
+)
+
+new_local_repository(
+    name = "system_gtsam",
+    path = "/usr/local",
+    build_file = "//third_party:gtsam.BUILD.bazel",
+)
+
+# Development-only tooling for generating compile_commands.json.
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+
+git_override(
+    module_name = "hedron_compile_commands",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor.git",
+    commit = "0e990032f3c5a866e72615cf67e5ce22186dcb97",
+)

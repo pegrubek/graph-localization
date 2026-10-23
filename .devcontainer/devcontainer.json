@@ -1,0 +1,52 @@
+
+{
+  "name": "Graph Localization (ROS 2 + GTSAM + Bazel)",
+
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+
+  "workspaceFolder": "/workspace",
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+
+  "remoteUser": "ubuntu",
+  "updateRemoteUserUID": true,
+
+  "mounts": [
+    "source=graph-localization-bazel-devcache,target=/home/ubuntu/.cache/bazel,type=volume",
+    "source=graph-localization-bashhistory,target=/commandhistory,type=volume",
+    "source=graph-localization-codex,target=/home/ubuntu/.codex,type=volume"
+  ],
+
+  "postCreateCommand": {
+    "Fix history volume permissions": "sudo chown -R $(id -u):$(id -g) /commandhistory",
+    "Fix Codex volume permissions": "sudo chown -R $(id -u):$(id -g) /home/ubuntu/.codex && chmod 700 /home/ubuntu/.codex"
+  },
+
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt=seccomp=unconfined"
+  ],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "BazelBuild.vscode-bazel"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "C_Cpp.default.compilerPath": "/usr/bin/g++",
+        "C_Cpp.default.cppStandard": "c++17",
+        "C_Cpp.default.includePath": [
+          "${workspaceFolder}/**",
+          "/usr/local/include",
+          "/usr/include/eigen3"
+        ]
+      }
+    }
+  }
+}

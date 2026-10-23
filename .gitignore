@@ -1,0 +1,11 @@
+# Bazel-generated symlinks and outputs
+/bazel-*/
+
+# Optional local build artifacts
+/dist/
+/.bazel-cache/
+
+# Editor-local state
+.vscode/*.log
+/compile_commands.json
+/external

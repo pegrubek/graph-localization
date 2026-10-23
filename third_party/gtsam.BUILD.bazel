@@ -1,0 +1,23 @@
+# The files in this repository come from the GTSAM installation
+# in the Docker image, not from Bazel source builds.
+
+package(default_visibility = ["//visibility:public"])
+
+cc_import(
+    name = "binary",
+    shared_library = "lib/libgtsam.so",
+)
+
+cc_library(
+    name = "gtsam",
+    hdrs = glob([
+        "include/gtsam/**/*.h",
+        "include/gtsam/**/*.hpp",
+    ]),
+    includes = ["include"],
+    deps = [
+        ":binary",
+        "@system_eigen//:eigen",
+    ],
+    linkopts = ["-ltbb"],
+)
